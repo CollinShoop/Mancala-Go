@@ -49,7 +49,7 @@ func minimax(board Board, player, scorePlayer, depth, maxDepth int, maximizing b
 	}
 
 	// stores list of moves and their scores
-	moveResults := make([]MoveResult, len(moves))
+	moveResults := make([]MoveResult, 0)
 
 	// iterate over moves, calculate score for each move by advancing the tree
 	for _, v := range moves {
@@ -94,13 +94,15 @@ func pickRandomMove(moveResults []MoveResult, maximizing bool) MoveResult {
 
 	// looks at the first value of moveResults & all subsequent moves of the same or very similar values
 	// and picks a random one to determine which move will be made
+
 	score := moveResults[0].score
 	upper := 0
 	for i, move := range moveResults {
 		if move.score == score {
-			upper = i - i
+			upper = i
 		}
 	}
+
 	return moveResults[rand.Intn(upper+1)]
 }
 

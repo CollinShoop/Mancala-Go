@@ -3,9 +3,9 @@
 package mancala
 
 import (
-	"../../internal/board"
 	"fmt"
 	"github.com/fatih/color"
+	"mancala/internal/board"
 )
 
 // FPrint Plays a game of Mancala
