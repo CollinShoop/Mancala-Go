@@ -4,14 +4,18 @@ package mancala
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"mancala/internal/board"
+	"mancala/internal/util"
+
+	"github.com/fatih/color"
 )
 
-// FPrint Plays a game of Mancala
-// Variable inputType
-// type Code_blocks int
-// 	fmt.Println("Hello")
+// Starts game.
+// Uses STDIO console for input and output.
+// inputType gives the type of player for players 1 and 2, with 0 meaning the
+// player inputs move from console, 1 being that a random move is always selected, and 2
+// being that a minimax strategy is used to pick the next move. The game will end
+// once there are no more moves and the winner will be announced.
 func PlayGame(inputType [2]int) {
 	board := board.GetNewBoard()
 	player := 0
@@ -42,7 +46,7 @@ func PlayGame(inputType [2]int) {
 			//waitForContinue()
 		}
 
-		fmt.Println("Moving tile", moveInput)
+		fmt.Println("Moving tile", moveInput+1)
 		moveAgain := board.Move(player, moveInput)
 
 		if moveAgain {
@@ -56,36 +60,26 @@ func PlayGame(inputType [2]int) {
 	color.Green("Player %v wins!", board.GetWinner()+1)
 }
 
+// Print board to STDIO, takes advantage of board.String
 func printBoard(board *board.Board) {
 	fmt.Println(board)
 }
 
-func waitForContinue() {
-	fmt.Println("Press enter to continue...")
-	fmt.Scanf("\r\n")
-}
-
+// Gets move input from the player via STDIO
 func getNextMoveFromPlayer(validMoves *[]int) int {
 	for {
 		fmt.Print("Enter move >")
 		var moveInput int
 		_, err := fmt.Scanf("%d\r\n", &moveInput)
+		moveInput--
 		if err != nil {
 			color.Red("Invalid move: %v, input move by typing the number of a tile that has more than 0 pieces", err)
 		} else {
-			if !contains(*validMoves, moveInput) {
+			if !util.Contains(*validMoves, moveInput) {
 				color.Red("Invalid move: tile is empty")
 			} else {
 				return moveInput
 			}
 		}
 	}
-}
-func contains(s []int, e int) bool {
-	for _, a := range s {
-		if a == e {
-			return true
-		}
-	}
-	return false
 }

@@ -93,17 +93,14 @@ func (b Board) IsGameOver() bool {
 }
 
 func (b Board) String() string {
-	var boardf = "-------------------------------------------------------------------------------------------\n" +
-		"  Player 2           5     4     3     2     1     0                   Player %v is winning\n" +
-		"            ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐          Game in progress: %v\n" +
+	var boardf = "--------------------------------------------------------------\n" +
+		"  Player 2           6     5     4     3     2     1                   \n" +
+		"            ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐          \n" +
 		"            │     │  ** │  ** │  ** │  ** │  ** │  ** │     │          \n" +
 		"            │  $$ ├─────┼─────┼─────┼─────┼─────┼─────┤  $$ │          \n" +
 		"            │     │  && │  && │  && │  && │  && │  && │     │          \n" +
 		"            └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘          \n" +
-		"                     0     1     2     3     4     5           Player 1  "
-
-	// write player and gameInProgress values
-	boardf = fmt.Sprintf(boardf, (b.GetWinner() + 1), !b.IsGameOver())
+		"                     1     2     3     4     5     6           Player 1  "
 
 	// Write P1 values
 	formatV := func(n int) string {
