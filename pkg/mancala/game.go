@@ -43,6 +43,8 @@ func PlayGame(inputType [2]int) {
 			moveInput = board.SelectRandomMove(player)
 		case 2:
 			moveInput = board.GetMiniMaxMove(player)
+		case 3:
+			moveInput = board.GetMiniMaxMove_mt(player)
 			//waitForContinue()
 		}
 
