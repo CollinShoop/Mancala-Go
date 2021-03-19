@@ -17,19 +17,19 @@ import (
 // being that a minimax strategy is used to pick the next move. The game will end
 // once there are no more moves and the winner will be announced.
 func PlayGame(inputType [2]int) {
-	board := board.GetNewBoard()
+	aboard := board.GetNewBoard()
 	player := 0
 
-	for !board.IsGameOver() {
-		printBoard(&board)
+	for !aboard.IsGameOver() {
+		printBoard(&aboard)
 
 		// check for case where no moves are available
-		validMoves := board.GetPlayerMoves(player)
+		validMoves := aboard.GetPlayerMoves(player)
 
 		var numMoves = len(validMoves)
 		if numMoves == 0 {
 			color.Red("No moves available, ending game")
-			board.Cleanup()
+			aboard.Cleanup()
 			break
 		}
 
@@ -40,16 +40,16 @@ func PlayGame(inputType [2]int) {
 		case 0:
 			moveInput = getNextMoveFromPlayer(&validMoves)
 		case 1:
-			moveInput = board.SelectRandomMove(player)
+			moveInput = aboard.SelectRandomMove(player)
 		case 2:
-			moveInput = board.GetMiniMaxMove(player)
+			moveInput = aboard.GetMiniMaxMove(player)
 		case 3:
-			moveInput = board.GetMiniMaxMove_mt(player)
+			moveInput = aboard.GetMiniMaxMove_mt(player)
 			//waitForContinue()
 		}
 
 		fmt.Println("Moving tile", moveInput+1)
-		moveAgain := board.Move(player, moveInput)
+		moveAgain := aboard.Move(player, moveInput)
 
 		if moveAgain {
 			color.Green("Move again!")
@@ -58,8 +58,8 @@ func PlayGame(inputType [2]int) {
 		}
 	}
 
-	printBoard(&board)
-	color.Green("Player %v wins!", board.GetWinner()+1)
+	printBoard(&aboard)
+	color.Green("Player %v wins!", aboard.GetWinner()+1)
 }
 
 // Print board to STDIO, takes advantage of board.String
